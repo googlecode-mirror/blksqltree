@@ -45,9 +45,16 @@ class AttributeZone extends DataThree
         $this->delete($lid);
     }
 
-    public function get($idz,$name)
+    public function get($idz,$name,$default)
     {
-        return $this->getValue($this->getIdMagic($idz, $name));
+        $lid=$this->getIdMagic($idz, $name);
+        if($lid!=null)
+            return $this->getValue($lid);
+        else
+        {
+            $this->getId($idz, $name, $value);
+            return $default;
+        }
     }
 
     public function remove($idz,$name)
@@ -57,7 +64,7 @@ class AttributeZone extends DataThree
 
     public function getIdMagic($idz,$name)
     {
-        $rs=$this->getCnn()->select(self::$tableName,array(self::$tablePk,self::$tableValue1),array(self::$tableValue0),0);
+        $rs=$this->getCnn()->select(self::$tableName,array(self::$tablePk,self::$tableValue1),array(self::$tableValue0=>$idz),0);
       
         foreach ($rs as $row)
         {
@@ -68,6 +75,16 @@ class AttributeZone extends DataThree
         return null;
     }
 
+    public function getAttributes($idz)
+    {
+        $a=array();
+        $rs=$this->getCnn()->select(self::$tableName,array(self::$tableValue1),array(self::$tableValue0=>$idz),0);
+        
+        foreach ($rs as $row)        
+            array_push($a, $this->a->getName($row[self::$tableValue1]));        
+        
+        return $a;
+    }
 
     protected function getId($idz,$name,$value)
     {

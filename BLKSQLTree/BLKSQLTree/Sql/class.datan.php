@@ -60,6 +60,9 @@ abstract class DataN
 
     protected function getValue($id)
     {
+        if(!is_numeric($id))
+            throw new Exception ("Invalid PK '$id' at ".$this->tableName);
+
         if(isset ($this->cache[$id]))
                 return $this->cache[$id];
 

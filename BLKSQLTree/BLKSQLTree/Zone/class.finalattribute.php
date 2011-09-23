@@ -24,7 +24,7 @@ class FinalAttribute
     private $name;
 
     private $az;
-
+    
     public function __construct(&$az,$idz,$name)
     {
         $this->az=$az;
@@ -37,9 +37,9 @@ class FinalAttribute
         return $this->az->set($this->idz,$this->name,$value);
     }
 
-    public function get()
+    public function get($default="")
     {
-        return $this->az->get($this->idz,$this->name);
+        return $this->az->get($this->idz,$this->name,$default);
     }
 
     public function delete()
