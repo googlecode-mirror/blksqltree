@@ -1,7 +1,7 @@
 <?php
 include_once dirname(__FILE__).'/Zone/class.finalzone.php';
 $cnn=Sql::getConnection("mysql",  array("Server" => "127.0.0.1","User" => "root","Password" => "","Database" => "blk_tree"));
-$data= FinalZone::getRootZone($cnn);
+$data= FinalZone::getRoot($cnn);
 
 function tree($parent)
 {
@@ -26,13 +26,13 @@ function tree($parent)
 
 
 
-$a=$data->getZone("A");
-$b=$data->getZone("B");
-$c=$data->getZone("C");
-    $ca=$c->getZone("CA");
-    $cb=$c->getZone("CB");
-    $cc=$c->getZone("CC");
-$d=$data->getZone("D");
+$a=$data->get("A");
+$b=$data->get("B");
+$c=$data->get("C");
+    $ca=$c->get("CA");
+    $cb=$c->get("CB");
+    $cc=$c->get("CC");
+$d=$data->get("D");
 
 
 
