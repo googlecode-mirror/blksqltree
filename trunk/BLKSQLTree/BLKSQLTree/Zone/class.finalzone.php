@@ -23,7 +23,12 @@ class FinalZone
 {
     private $z;    
     private $id;
-    
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
     private function  __construct(&$z,$id)
     {
         $this->z=$z;
@@ -74,6 +79,11 @@ class FinalZone
     public function getAttribute($name)
     {
         return new FinalAttribute($this->z->getAZ(), $this->id, $name);
+    }
+    
+    public function getAttributes()
+    {
+        return $this->z->getAZ()->getAttributes($this->id);
     }
 }
 ?>
