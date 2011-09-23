@@ -66,7 +66,7 @@ class Zone extends DataThree
         {
             //UPDATE
         }
-
+        //ATTRS
         if(!parent::delete($id))
             return false;
 

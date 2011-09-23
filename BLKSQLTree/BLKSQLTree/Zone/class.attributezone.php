@@ -45,14 +45,15 @@ class AttributeZone extends DataThree
         $this->delete($lid);
     }
 
-    public function get($idz,$name,$default)
+    public function get($idz,$name,$default=null)
     {
         $lid=$this->getIdMagic($idz, $name);
         if($lid!=null)
             return $this->getValue($lid);
         else
         {
-            $this->getId($idz, $name, $value);
+            if($default!=null)
+                $this->getId($idz, $name, $value);
             return $default;
         }
     }

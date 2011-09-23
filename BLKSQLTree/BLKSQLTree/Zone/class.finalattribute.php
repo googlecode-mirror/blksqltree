@@ -37,7 +37,7 @@ class FinalAttribute
         return $this->az->set($this->idz,$this->name,$value);
     }
 
-    public function get($default="")
+    public function get($default=null)
     {
         return $this->az->get($this->idz,$this->name,$default);
     }

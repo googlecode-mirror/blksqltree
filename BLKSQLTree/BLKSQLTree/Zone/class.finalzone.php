@@ -35,17 +35,17 @@ class FinalZone
         $this->id=$id;
     }
 
-    public static function  getRootZone($cnn)
+    public static function  getRoot($cnn)
     {
         return new FinalZone(new Zone($cnn),null);
     }
 
-    public function getZone($name)
+    public function get($name)
     {
         return new FinalZone($this->z, $this->z->getId($this->id,$name));        
     }
 
-    public function getParentZone()
+    public function getParent()
     {
         if($this->id==null)
             return null;
