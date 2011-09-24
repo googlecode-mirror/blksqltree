@@ -36,7 +36,7 @@ class Dictionary
     }
     public  function getZone($word)
     {
-        $z=$this->getKeysWord($word);
+        $z=$this->zone->get($this->getKeysWord($word));
 
         foreach (str_split($word) as $l)
             $z=$z->get($l);
@@ -49,8 +49,7 @@ class Dictionary
     private function getKeysWord($word)
     {
         $word=self::procWord($word);
-        $b=array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9");
-        $z=$this->zone;
+        $b=array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9");        
 
         $tmp="";
         foreach($b as $key)
