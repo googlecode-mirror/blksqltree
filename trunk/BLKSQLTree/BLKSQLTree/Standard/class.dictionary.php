@@ -1,20 +1,27 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/*
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
  */
 
 /**
- * Description of class
  *
- * @author andresrg
+ * @author The Blankis < blankitoracing@gmail.com >
  */
 class Dictionary
 {
     private $zone;
     public function  __construct($root_zone)
     {
-
         $z=$root_zone;
         $z=$z->get("Standard");
         $z=$z->get("Dictionary");
@@ -24,7 +31,6 @@ class Dictionary
     {
         $t=$word;
         $t=strtoupper($t);
-
 
         $t = str_replace("Á", "A", $t);
         $t = str_replace("É", "E", $t);
@@ -99,19 +105,17 @@ class Dictionary
 
         foreach($this->zone->getZones() as $zone)
         {
-            $flag=true;
+            
+            $total=strlen($t);
             $c1=$zone->getName();
-            foreach (str_split($t) as $l)
-            {
-                if(strpos($c1,$l)===false)
-                {
-                    $flag=false;
-                    break;
-                }
-            }
 
-            if($flag)
-                $this->getWords ($zone, $list);
+            foreach (str_split($t) as $l)
+                if(strpos($c1,$l)!==false)
+                    $total--;
+            
+            if($total<strlen($t)/3)
+                $this->getWords ($zone,$list);            
+            
         }
 
         return $list;
