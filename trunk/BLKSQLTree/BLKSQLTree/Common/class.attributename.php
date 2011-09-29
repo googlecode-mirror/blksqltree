@@ -18,11 +18,11 @@
  * @author The Blankis < blankitoracing@gmail.com >
  */
 require_once dirname(__FILE__)."/../Sql/class.datapair64.php";
-class AttributeValue extends DataPair64
+class AttributeName extends DataPair64
 {
-    private static $tableName="TREE_ATTRIBUTE_VALUE";
-    private static $tablePk="ATTRIBUTE_VALUE_ID";
-    private static $tableValue="ATTRIBUTE_VALUE_VALUE";
+    public static $tableName="BLK_ATTRIBUTE_NAME";
+    public static $tablePk="ATTRIBUTE_NAME_ID";
+    private static $tableValue="ATTRIBUTE_NAME_VALUE";
 
     public function  __construct($cnn)
     {
@@ -31,12 +31,12 @@ class AttributeValue extends DataPair64
 
     public function getId($value)
     {
-        return parent::getId($value);
+        return parent::getId(strtoupper($value));
     }
 
     public function  getValue($id)
     {
-        return parent::getValue($id);
+        return strtoupper(parent::getValue($id));
     }
 }
 ?>

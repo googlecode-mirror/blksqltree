@@ -22,7 +22,7 @@ require_once dirname(__FILE__)."/class.attributezone.php";
 require_once dirname(__FILE__)."/class.zonename.php";
 class Zone extends DataThree
 {
-    private static $tableName="TREE_ZONE";
+    private static $tableName="BLK_ZONE";
     private static $tablePk="ZONE_ID";
     private static $tableValue0="ZONE_PARENT_ID";
     private static $tableValue1="ZONE_NAME_ID";

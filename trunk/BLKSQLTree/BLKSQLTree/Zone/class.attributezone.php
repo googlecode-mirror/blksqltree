@@ -18,10 +18,10 @@
  * @author The Blankis < blankitoracing@gmail.com >
  */
 require_once dirname(__FILE__)."/../Sql/class.datathree.php";
-require_once dirname(__FILE__)."/class.attribute.php";
+require_once dirname(__FILE__)."/../Common/class.attribute.php";
 class AttributeZone extends DataThree
 {
-    private static $tableName="TREE_ZONE_ATTRIBUTE";
+    private static $tableName="BLK_ZONE_ATTRIBUTE";
     private static $tablePk="ZONE_ATTRIBUTE_ID";
     private static $tableValue0="ZONE_ATTRIBUTE_ZONE_ID";
     private static $tableValue1="ZONE_ATTRIBUTE_ATTRIBUTE_ID";
@@ -117,7 +117,7 @@ class AttributeZone extends DataThree
         if(!parent::delete($id))
             return false;
 
-        if(!parent::inUse(self::$tableValue1, $aid))
+        if(!parent::inUse(self::$tableValue1, $aid))//check node
             $this->a->delete ($aid);
 
         return true;

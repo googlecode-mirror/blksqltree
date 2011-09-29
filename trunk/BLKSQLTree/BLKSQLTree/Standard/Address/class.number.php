@@ -17,6 +17,7 @@
  *
  * @author The Blankis < blankitoracing@gmail.com >
  */
+require_once dirname(__FILE__)."/class.street.php";
 class StreetNumber extends CityStreet
 {
     private $zone5;
