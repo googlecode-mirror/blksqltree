@@ -83,3 +83,29 @@ CREATE TABLE IF NOT EXISTS `BLK_NAME` (
   `NAME_VALUE` varchar(383) DEFAULT NULL,
   PRIMARY KEY (`NAME_ID`)
 ) ENGINE=MyISAM;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `BLK_NODE_LINK`
+--
+
+CREATE TABLE IF NOT EXISTS `BLK_NODE_LINK` (
+  `NODE_LINK_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NODE_LINK_NAME_ID_A` int(11) NOT NULL,
+  `NODE_LINK_NAME_ID_B` int(11) NOT NULL,
+  PRIMARY KEY (`NODE_LINK_ID`)
+) ENGINE=MyISAM;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `BLK_ZONE_LINK`
+--
+
+CREATE TABLE IF NOT EXISTS `BLK_ZONE_LINK` (
+  `ZONE_LINK_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ZONE_LINK_ZONE_ID_A` int(11) NOT NULL,
+  `ZONE_LINK_ZONE_ID_B` int(11) NOT NULL,
+  PRIMARY KEY (`ZONE_LINK_ID`)
+) ENGINE=MyISAM;
