@@ -18,11 +18,11 @@
  * @author The Blankis < blankitoracing@gmail.com >
  */
 require_once dirname(__FILE__)."/../Sql/class.datapair64.php";
-class ZoneName extends DataPair64
+class Name extends DataPair64
 {
-    private static $tableName="BLK_ZONE_NAME";
-    private static $tablePk="ZONE_NAME_ID";
-    private static $tableValue="ZONE_NAME_VALUE";
+    private static $tableName="BLK_NAME";
+    private static $tablePk="NAME_ID";
+    private static $tableValue="NAME_VALUE";
 
     public function  __construct($cnn)
     {
