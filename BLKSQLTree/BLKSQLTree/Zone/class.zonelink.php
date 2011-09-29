@@ -17,10 +17,10 @@
  *
  * @author The Blankis < blankitoracing@gmail.com >
  */
-require_once dirname(__FILE__)."/../Sql/class.datathree.php";
-class ZoneLink extends DataThree
+require_once dirname(__FILE__)."/../Common/class.link.php";
+class ZoneLink extends Link
 {
-    private static $tableName="BLK_NODE_LINK";
+    private static $tableName="BLK_ZONE_LINK";
     private static $tablePk="ZONE_LINK_ID";
     private static $tableValue0="ZONE_LINK_ZONE_ID_A";
     private static $tableValue1="ZONE_LINK_ZONE_ID_B";
@@ -28,26 +28,6 @@ class ZoneLink extends DataThree
     public function __construct($cnn)
     {
         parent::__construct($cnn, self::$tableName, self::$tablePk, self::$tableValue0, self::$tableValue1);
-    }
-
-    public function getId($id_a,$id_b)
-    {
-        if($id_a<$id_b)
-            return parent::getId($id_a,$id_b);
-        elseif($id_a>$id_b)
-            return parent::getId($id_b,$id_a);
-        else
-            throw new Exception ("Same id link");
-    }
-
-    public function getIdA($id)
-    {
-        return parent::getValue0($id);
-    }
-
-    public function getIdB($id)
-    {
-        return parent::getValue1($id);
     }
 }
 ?>

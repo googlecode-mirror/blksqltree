@@ -85,5 +85,23 @@ class FinalZone
     {
         return $this->z->getAZ()->getAttributes($this->id);
     }
+
+    public function link($other_zone)
+    {
+        return $this->z->getZL()->getId($this->id,$other_zone->id)!=0;
+    }
+
+    public function unLink($other_zone)
+    {
+        return $this->z->getZL()->delete($this->id,$other_zone->id);
+    }
+
+    public function getLinks()
+    {
+        $t=array();
+        foreach($this->z->getZL()->getIds($this->id) as $idz)
+            $t[$idz]=new FinalZone ($this->z, $idz);
+        return $t;
+    }
 }
 ?>
