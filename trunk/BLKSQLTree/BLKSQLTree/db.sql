@@ -75,11 +75,11 @@ CREATE TABLE IF NOT EXISTS `BLK_ZONE_ATTRIBUTE` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `BLK_ZONE_NAME`
+-- Estructura de tabla para la tabla `BLK_NAME`
 --
 
-CREATE TABLE IF NOT EXISTS `BLK_ZONE_NAME` (
-  `ZONE_NAME_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ZONE_NAME_VALUE` varchar(383) DEFAULT NULL,
-  PRIMARY KEY (`ZONE_NAME_ID`)
+CREATE TABLE IF NOT EXISTS `BLK_NAME` (
+  `NAME_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME_VALUE` varchar(383) DEFAULT NULL,
+  PRIMARY KEY (`NAME_ID`)
 ) ENGINE=MyISAM;

@@ -19,7 +19,7 @@
  */
 require_once dirname(__FILE__)."/../Sql/class.datathree.php";
 require_once dirname(__FILE__)."/class.attributezone.php";
-require_once dirname(__FILE__)."/class.zonename.php";
+require_once dirname(__FILE__)."/../Common/class.name.php";
 class Zone extends DataThree
 {
     private static $tableName="BLK_ZONE";
@@ -34,7 +34,7 @@ class Zone extends DataThree
     {
         parent::__construct($cnn, self::$tableName, self::$tablePk, self::$tableValue0, self::$tableValue1);
         $this->az=new AttributeZone($cnn);
-        $this->zn=new ZoneName($cnn);
+        $this->zn=new Name($cnn);
     }
 
     public function getId($pid,$name)
@@ -70,7 +70,7 @@ class Zone extends DataThree
         if(!parent::delete($id))
             return false;
 
-        if(!parent::inUse(self::$tableValue1, $znid))
+        if(!parent::inUse(self::$tableValue1, $znid))//check name node
             $this->zn->delete ($znid);
 
         return true;
