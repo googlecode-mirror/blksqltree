@@ -19,6 +19,7 @@
  */
 require_once dirname(__FILE__)."/../Sql/class.datathree.php";
 require_once dirname(__FILE__)."/class.attributezone.php";
+require_once dirname(__FILE__)."/class.zonelink.php";
 require_once dirname(__FILE__)."/../Common/class.name.php";
 class Zone extends DataThree
 {
@@ -29,12 +30,14 @@ class Zone extends DataThree
 
     private $az;
     private $zn;
+    private $zl;
 
     public function __construct($cnn)
     {
         parent::__construct($cnn, self::$tableName, self::$tablePk, self::$tableValue0, self::$tableValue1);
         $this->az=new AttributeZone($cnn);
         $this->zn=new Name($cnn);
+        $this->zl=new ZoneLink($cnn);
     }
 
     public function getId($pid,$name)
@@ -88,6 +91,7 @@ class Zone extends DataThree
     }
 
     public function getAZ(){return $this->az;}
+    public function getZL(){return $this->zl;}
 
 }
 ?>
