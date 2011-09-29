@@ -17,6 +17,7 @@
  *
  * @author The Blankis < blankitoracing@gmail.com >
  */
+require_once dirname(__FILE__)."/class.country.php";
 class CountryState extends AddressCountry
 {
     private $zone2;

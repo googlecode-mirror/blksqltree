@@ -20,7 +20,7 @@
 require_once dirname(__FILE__)."/../Sql/class.datapair64.php";
 class ZoneName extends DataPair64
 {
-    private static $tableName="TREE_ZONE_NAME";
+    private static $tableName="BLK_ZONE_NAME";
     private static $tablePk="ZONE_NAME_ID";
     private static $tableValue="ZONE_NAME_VALUE";
 

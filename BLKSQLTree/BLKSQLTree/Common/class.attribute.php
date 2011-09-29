@@ -22,7 +22,7 @@ require_once dirname(__FILE__)."/class.attributename.php";
 require_once dirname(__FILE__)."/class.attributevalue.php";
 class Attribute extends DataThree
 {
-    private static $tableName="TREE_ATTRIBUTE";
+    private static $tableName="BLK_ATTRIBUTE";
     private static $tablePk="ATTRIBUTE_ID";
     private static $tableValue0="ATTRIBUTE_NAME_ID";
     private static $tableValue1="ATTRIBUTE_VALUE_ID";
