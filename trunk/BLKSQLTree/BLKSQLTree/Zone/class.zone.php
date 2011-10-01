@@ -69,7 +69,16 @@ class Zone extends DataThree
         {
             //UPDATE
         }
-        //ATTRS
+
+        foreach($this->getAZ()->getAttributes($id) as $a_name)
+            if(!$this->getAZ()->remove ($id, $a_name))
+                return false;
+
+
+        foreach($this->getZL()->getIds($id) as $id_linked_zone)
+            if(!$this->getZL()->delete($id, $id_linked_zone))
+                return false;
+
         if(!parent::delete($id))
             return false;
 
