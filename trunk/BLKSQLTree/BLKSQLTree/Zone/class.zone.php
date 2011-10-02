@@ -74,7 +74,6 @@ class Zone extends DataThree
             if(!$this->getAZ()->remove ($id, $a_name))
                 return false;
 
-
         foreach($this->getZL()->getIds($id) as $id_linked_zone)
             if(!$this->getZL()->delete($id, $id_linked_zone))
                 return false;

@@ -39,7 +39,7 @@ class AttributeZone extends DataThree
         $lid=$this->getIdMagic($idz, $name);
 
         if($this->getValue($lid)==$value)
-                return true;
+            return true;
 
         $this->getId($idz, $name, $value);
         $this->delete($lid);
@@ -92,25 +92,26 @@ class AttributeZone extends DataThree
         return parent::getId($idz, $this->a->getId($name, $value));
     }
 
-    private function getIdz($id)
-    {
-        return parent::getValue0($id);
-    }
-
     private function getName($id)
     {
+        if($id==null)
+            return null;
+
         return $this->a->getName(parent::getValue1($id));
     }
 
     protected function getValue($id)
     {
-        if($id==null)return null;
+        if($id==null)
+            return null;
+
         return $this->a->getValue(parent::getValue1($id));
     }
 
     protected function delete($id)
     {
-        if($id==null)return false;
+        if($id==null)
+            return false;
 
         $aid=parent::getValue1($id);
 
