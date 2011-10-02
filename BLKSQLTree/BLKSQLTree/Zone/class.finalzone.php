@@ -66,41 +66,59 @@ class FinalZone
         $t=array();
 
         foreach ($this->z->getZoneIds($this->id) as $sid)
-            array_push ($t, new FinalZone ($this->z, $sid));
+            $t[$sid]=new FinalZone ($this->z, $sid);
 
         return $t;
     }
 
     public function delete($recursive=true)
     {
+        if($this->id==null)
+            return false;
+
         return $this->z->delete($this->id,$recursive);
     }
 
     public function getAttribute($name)
     {
+        if($this->id==null)
+            return null;
+
         return new FinalAttribute($this->z->getAZ(), $this->id, $name);
     }
     
     public function getAttributes()
     {
+        if($this->id==null)
+            return array();
+
         return $this->z->getAZ()->getAttributes($this->id);
     }
 
     public function link($other_zone)
     {
-        return $this->z->getZL()->getId($this->id,$other_zone->id)!=0;
+        if($this->id==null)
+            return false;
+
+        return $this->z->getZL()->set($this->id,$other_zone->id)!=0;
     }
 
     public function unLink($other_zone)
     {
+        if($this->id==null)
+            return false;
+
         return $this->z->getZL()->delete($this->id,$other_zone->id);
     }
 
     public function getLinks()
     {
         $t=array();
-        foreach($this->z->getZL()->getIds($this->id) as $idz)
-            $t[$idz]=new FinalZone ($this->z, $idz);
+
+        if($this->id==null)
+            foreach($this->z->getZL()->gets($this->id) as $idz)
+                $t[$idz]=new FinalZone ($this->z, $idz);
+
         return $t;
     }
 }

@@ -34,7 +34,7 @@ class Link extends DataThree
         $this->tableValue1=$tableValue1;
     }
 
-    public function getId($id_a,$id_b)
+    public function set($id_a,$id_b)
     {
         if($id_a<$id_b)
             return parent::getId($id_a,$id_b);
@@ -44,25 +44,15 @@ class Link extends DataThree
             return 0;
     }
 
-//    public function getIdA($id)
-//    {
-//        return parent::getValue0($id);
-//    }
-//
-//    public function getIdB($id)
-//    {
-//        return parent::getValue1($id);
-//    }
-
-    public function getIds($idAoB)
+    public function gets($idAorB)
     {
         $t=array();
-        $rs=parent::getCnn()->select($this->tableName,array($this->tableValue0),array($this->tableValue1=>$idAoB),0);
+        $rs=parent::getCnn()->select($this->tableName,array($this->tableValue0),array($this->tableValue1=>$idAorB),0);
         foreach($rs as $row)
             if(!in_array($row[$this->tableValue0], $t))
                 array_push ($t, $row[$this->tableValue0]);
 
-       $rs=parent::getCnn()->select($this->tableName,array($this->tableValue1),array($this->tableValue0=>$idAoB),0);
+       $rs=parent::getCnn()->select($this->tableName,array($this->tableValue1),array($this->tableValue0=>$idAorB),0);
         foreach($rs as $row)
             if(!in_array($row[$this->tableValue1], $t))
                 array_push ($t, $row[$this->tableValue1]);
