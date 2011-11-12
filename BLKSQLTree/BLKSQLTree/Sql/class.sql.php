@@ -92,6 +92,17 @@ abstract class Sql
     public abstract function insert($table,$data=array());
     public abstract function update($table,$data=array(),$where=array(),$limit=0);
 
+    public function selectCol($table,$col,$where=array(),$limit=100)
+    {
+        $out=array();
+
+        foreach($this->select($table,array($col),$where,$limit) as $row)
+                foreach($row as $value)
+                    array_push ($out, $value);
+        
+        return $out;
+    }
+
     public function autoTable($table,$data,$col=array(),$create=true)
     {
         $rs=$this->select($table,$col,$data, 1);

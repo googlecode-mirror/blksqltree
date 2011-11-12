@@ -144,7 +144,7 @@ class mysql extends Sql
 
     public function  update($table,$data=array(),$where=array(),$limit=0)
     {
-        return $this->command("UPDATE ".$table." SET ".parent::arrayToEqual($data).parent::arrayToWhere($where));
+        return $this->command("UPDATE ".$table." SET ".parent::arrayToEqual($data).parent::arrayToWhere($where).self::getLimit($limit));
     }
 
     private static function getLimit($limit)
