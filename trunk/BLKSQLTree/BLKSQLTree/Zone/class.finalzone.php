@@ -45,6 +45,55 @@ class FinalZone
         return new FinalZone($this->z, $this->z->getId($this->id,$name));        
     }
 
+    public static function getGlobalMant($parent)
+    {
+        if($parent===false)
+            return false;
+        
+        $t=$parent;
+        $last=$parent;
+
+        $count=999999999;
+
+        while($t!==false)
+        {
+//            if($t->getAttribute("CountMant")->get(0)<$count)
+//            {
+                $last=$t;
+//                $count=$t->getAttribute("CountMant")->get(0);
+//            }
+
+            $t=$t->getMant();
+        }
+        
+
+        return $last;
+    }
+
+    public function getMant()
+    {
+        $t=$this->getZones();
+
+        $lzone=false;
+        $ltime=round(microtime(true),0)+10;
+
+        foreach($t as $zzz)
+        {
+            $time=$zzz->getAttribute("TimeMant")->get(0);
+
+            if($time<$ltime)
+            {
+                $ltime=$time;
+                $lzone=$zzz;
+            }
+        }
+
+        if($lzone!==false)
+            $lzone->getAttribute("TimeMant")->set(round(microtime(true),0));
+        
+        return $lzone;
+    }
+
     public function getParent()
     {
         if($this->id==null)

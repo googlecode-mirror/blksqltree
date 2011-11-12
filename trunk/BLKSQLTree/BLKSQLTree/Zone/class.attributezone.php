@@ -63,7 +63,7 @@ class AttributeZone extends DataThree
         return $this->delete($this->getIdMagic($idz, $name));
     }
 
-    public function getIdMagic($idz,$name)
+    private function getIdMagic($idz,$name)
     {
         $rs=$this->getCnn()->select(self::$tableName,array(self::$tablePk,self::$tableValue1),array(self::$tableValue0=>$idz),0);
       
