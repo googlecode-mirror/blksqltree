@@ -22,9 +22,9 @@ abstract class DataPair extends DataN
 {
     private $tableCol;
 
-    protected function  __construct($cnn,$tableName,$tablePK,$tableCol)
+    protected function  __construct(&$driver,$tableName,$tablePK,$tableCol)
     {
-        parent::__construct($cnn, $tableName, $tablePK);
+        parent::__construct($driver, $tableName, $tablePK);
         $this->tableCol=$tableCol;
     }
 

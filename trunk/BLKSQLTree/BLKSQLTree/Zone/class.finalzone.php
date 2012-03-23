@@ -110,13 +110,18 @@ class FinalZone
        return $this->z->getName($this->id);
     }
 
-    public function getZones()
+    public function getZones($limit=null)
     {
         $t=array();
 
         foreach ($this->z->getZoneIds($this->id) as $sid)
-            $t[$sid]=new FinalZone ($this->z, $sid);
+        {
+            if($limit!=null)
+                $limit--;
 
+            if($limit!=null && $limit>=0)
+                $t[$sid]=new FinalZone ($this->z, $sid);
+        }
         return $t;
     }
 
@@ -136,12 +141,12 @@ class FinalZone
         return new FinalAttribute($this->z->getAZ(), $this->id, $name);
     }
     
-    public function getAttributes()
+    public function getAttributes($limit=null)
     {
         if($this->id==null)
             return array();
 
-        return $this->z->getAZ()->getAttributes($this->id);
+        return $this->z->getAZ()->getAttributes($this->id,$limit);
     }
 
     public function link($other_zone)

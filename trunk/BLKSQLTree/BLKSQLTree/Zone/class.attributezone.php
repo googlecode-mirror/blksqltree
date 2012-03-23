@@ -76,14 +76,23 @@ class AttributeZone extends DataThree
         return null;
     }
 
-    public function getAttributes($idz)
+    public function getAttributes($idz,$limit=null)
     {
         $a=array();
         $rs=$this->getCnn()->select(self::$tableName,array(self::$tableValue1),array(self::$tableValue0=>$idz),0);
         
-        foreach ($rs as $row)        
+        foreach ($rs as $row)
+        {
+            if($limit!=null)
+            {
+                if($limit<=0)
+                    break;
+                else
+                    $limit--;
+            }
+
             array_push($a, $this->a->getName($row[self::$tableValue1]));        
-        
+        }
         return $a;
     }
 

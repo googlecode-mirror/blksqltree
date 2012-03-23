@@ -21,9 +21,9 @@ require_once dirname(__FILE__)."/class.datapair.php";
 abstract class DataPair64 extends DataPair
 {
     
-    protected function  __construct($cnn,$tableName,$tablePK,$tableCol)
+    protected function  __construct(&$driver,$tableName,$tablePK,$tableCol)
     {
-        parent::__construct($cnn, $tableName, $tablePK, $tableCol);
+        parent::__construct($driver, $tableName, $tablePK, $tableCol);
     }
 
     protected function getId($value)

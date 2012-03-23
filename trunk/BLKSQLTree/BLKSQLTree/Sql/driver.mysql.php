@@ -17,6 +17,7 @@
  *
  * @author The Blankis < blankitoracing@gmail.com >
  */
+require_once dirname(__FILE__).'/class.sql.php';
 class mysql extends Sql
 {
     private $server="127.0.0.1";
@@ -89,7 +90,7 @@ class mysql extends Sql
         return !(mysql_close($this->cnn)===false);
     }
 
-    private function query($query)
+    public function query($query)
     {
 	$t=microtime(true);
         $rs = mysql_query($query,$this->cnn);
@@ -108,18 +109,18 @@ class mysql extends Sql
         return $list;
     }
 
-    private function command ($sql)
+    public function command ($sql)
     {
 	$t=microtime(true);
 
         $Result=mysql_unbuffered_query($sql,$this->cnn);
 
 	$t=microtime(true)-$t;
-	echo "COMMAND (".round($t,1).") : $sql\n";
+	//echo "COMMAND (".round($t,1).") : $sql\n";
 
         if ($Result===false)
         {
-            trigger_error("command Error;".mysql_error($this->cnn).": ".$sql, E_USER_WARNING);
+            //trigger_error("command Error;".mysql_error($this->cnn).": ".$sql, E_USER_WARNING);
             return false;
         }
         else
@@ -144,10 +145,17 @@ class mysql extends Sql
 
     public function  update($table,$data=array(),$where=array(),$limit=0)
     {
-        return $this->command("UPDATE ".$table." SET ".parent::arrayToEqual($data).parent::arrayToWhere($where).self::getLimit($limit));
+        return $this->command("UPDATE ".$table." SET ".parent::arrayToEqual($data,",").parent::arrayToWhere($where).self::getLimit($limit));
     }
 
-    private static function getLimit($limit)
+    public function  count($table,$where=array())
+    {
+       $rs = $this->query("SELECT COUNT(*) as TOTAL FROM ".$table).parent::arrayToWhere($where);
+       $rs=$rs[0];
+       return $rs["TOTAL"];
+    }
+
+    protected static function getLimit($limit)
     {
         if(is_numeric($limit) && $limit>0)
             return " LIMIT ".$limit.";";
@@ -155,6 +163,30 @@ class mysql extends Sql
             return ";";
     }
 
-    
+    public function getErrorCode()
+    {
+        return mysql_errno($this->cnn);
+    }
+    public function getErrorMessage()
+    {
+        return mysql_error($this->cnn);
+    }
+
+    function getCols($table)
+    {
+        return $this->query("SHOW COLUMNS FROM ".$table);
+    }
+
+    function getUnique($table,$col)
+    {
+        foreach($this->getCols($table) as $row)
+            if(strtolower($row["Field"])==strtolower($col))
+                if(strtolower($row["Key"])=="pri" || strtolower($row["Key"])=="uni")
+                    return true;
+                else
+                    return false;
+
+        throw new Exception("Col not found");
+    }
 }
 ?>
