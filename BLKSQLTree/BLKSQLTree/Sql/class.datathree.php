@@ -23,9 +23,9 @@ abstract class DataThree extends DataN
     private $tableCol0;
     private $tableCol1;
 
-    protected function  __construct($cnn,$tableName,$tablePK,$tableCol0,$tableCol1)
+    protected function  __construct(&$driver,$tableName,$tablePK,$tableCol0,$tableCol1)
     {
-        parent::__construct($cnn, $tableName, $tablePK);
+        parent::__construct($driver, $tableName, $tablePK);
         $this->tableCol0=$tableCol0;
         $this->tableCol1=$tableCol1;
     }

@@ -33,15 +33,15 @@ abstract class Sql
         else
             return "";
     }
-    protected static function arrayToEqual($data)
+    protected static function arrayToEqual($data,$and="and")
     {
         $t="";
         foreach($data as $key => $value)
         {
             if($t!="")
-                $t.=" and ";
+                $t.=" $and ";
             
-            if($value==null)
+            if($value===null)
                 $t.=$key." is null";
             else
                 $t.=$key."='".$value."'";
@@ -78,7 +78,7 @@ abstract class Sql
             
             $t0.=$key;
 
-            if($value==null)
+            if($value===null)
                 $t1.="null";
             else
                 $t1.="'".$value."'";
@@ -87,10 +87,13 @@ abstract class Sql
         return "(".$t0.") VALUES (".$t1.")";
     }
 
+    public abstract function count($table,$where=array());
     public abstract function select($table,$col=array(),$where=array(),$limit=100);
     public abstract function delete($table,$where=array(),$limit=100);
     public abstract function insert($table,$data=array());
     public abstract function update($table,$data=array(),$where=array(),$limit=0);
+    public abstract function query($query);
+    public abstract function command($query);
 
     public function selectCol($table,$col,$where=array(),$limit=100)
     {
@@ -112,7 +115,14 @@ abstract class Sql
         else if ($create)
         {
             if ($this->insert($table, $data))
-                return $this->autoTable($table, $data, $col, $create);
+            {
+                $rs=$this->select($table,$col,$data, 1);
+
+                if (count($rs)>0)
+                    return $rs[0];
+                else
+                    throw new Exception("Fail to create on table $table: ".self::arrayToInsert($data));                   
+            }             
             else
                 throw new Exception("Fail to create on table $table: ".self::arrayToInsert($data));
         }

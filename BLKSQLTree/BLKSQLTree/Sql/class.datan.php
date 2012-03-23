@@ -20,7 +20,7 @@
 require_once dirname(__FILE__)."/class.sql.php";
 abstract class DataN
 {
-    private $cnn;
+    private $driver;
     private $tableName;
     private $tablePK;
 
@@ -39,9 +39,9 @@ abstract class DataN
         return true;
     }
 
-    protected function  __construct($cnn,$tableName,$tablePK)
+    protected function  __construct(&$driver,$tableName,$tablePK)
     {
-        $this->cnn=$cnn;
+        $this->driver=$driver;
         $this->tableName=$tableName;
         $this->tablePK=$tablePK;
     }
@@ -54,7 +54,7 @@ abstract class DataN
                     return $key;
         }
 
-        $rs=$this->cnn->autoTable($this->tableName, $data, array($this->tablePK), true);
+        $rs=$this->driver->autoTable($this->tableName, $data, array($this->tablePK), true);
         return $rs[$this->tablePK];
     }
 
@@ -66,7 +66,7 @@ abstract class DataN
         if(isset ($this->cache[$id]))
                 return $this->cache[$id];
 
-        $rs=$this->cnn->select($this->tableName, array(), array($this->tablePK=>$id), 1);
+        $rs=$this->driver->select($this->tableName, array(), array($this->tablePK=>$id), 1);
 
         if(count($rs)==0)
             throw new Exception ("Invalid PK '$id' at ".$this->tableName);
@@ -78,19 +78,19 @@ abstract class DataN
 
         return $rs;
     }
+//
+//    protected function inUse($tableCol,$id)
+//    {
+//        foreach($this->cache as $data)
+//                if(isset ($data[$tableCol]) && $data[$tableCol]==$id)
+//                    return true;
+//
+//        return count($this->driver->select($this->tableName, array($tableCol), array($tableCol=>$id), 1))>0;
+//    }
 
-    protected function inUse($tableCol,$id)
+    public function delete($id)
     {
-        foreach($this->cache as $data)
-                if(isset ($data[$tableCol]) && $data[$tableCol]==$id)
-                    return true;
-
-        return count($this->cnn->select($this->tableName, array($tableCol), array($tableCol=>$id), 1))>0;
-    }
-
-    protected function delete($id)
-    {
-        if(!$this->cnn->delete($this->tableName, array($this->tablePK=>$id), 0))
+        if(!$this->driver->delete($this->tableName, array($this->tablePK=>$id), 0))
                 return false;
 
         unset ($this->cache[$id]);
@@ -98,9 +98,9 @@ abstract class DataN
         return true;
     }
 
-    protected function getCnn()
+    protected function getDriver()
     {
-        return $this->cnn;
+        return $this->driver;
     }
 }
 ?>
